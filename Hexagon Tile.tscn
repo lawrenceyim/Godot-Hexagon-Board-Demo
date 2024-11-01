@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://byyc8sgy7rbnw"]
+
+[ext_resource type="Script" path="res://Tile.cs" id="1_iqn3w"]
+[ext_resource type="Texture2D" uid="uid://ddjbb1hrcbi1o" path="res://Blank Hexagon.png" id="1_p151i"]
+
+[node name="Hexagon Tile" type="Node2D"]
+script = ExtResource("1_iqn3w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_p151i")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/Area2D"]
+polygon = PackedVector2Array(-50, -25, 0, -50, 50, -25, 50, 25, 0, 50, -50, 25)
+
+[connection signal="mouse_entered" from="Sprite2D/Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Sprite2D/Area2D" to="." method="_on_area_2d_mouse_exited"]
