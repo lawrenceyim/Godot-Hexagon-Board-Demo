@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://Tile.cs" id="1_iqn3w"]
 [ext_resource type="Texture2D" uid="uid://ddjbb1hrcbi1o" path="res://Blank Hexagon.png" id="1_p151i"]
 
-[node name="Hexagon Tile" type="Node2D"]
+[node name="Hexagon Tile" type="Node2D" node_paths=PackedStringArray("_sprite")]
 script = ExtResource("1_iqn3w")
+_sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_p151i")

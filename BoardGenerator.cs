@@ -12,7 +12,7 @@ public partial class BoardGenerator : Node2D {
 	private void GenerateSquareBoard(int boardSizeInTiles) {
 		float horizontalDistance = _sizeOfTile;
 		float verticalDistance = _sizeOfTile * .75f;
-		
+
 		// row is the Y position; column is the X position
 		for (int row = 0; row < boardSizeInTiles; row++) {
 			float verticalPosition = verticalDistance * row;
@@ -21,11 +21,6 @@ public partial class BoardGenerator : Node2D {
 				Vector2 position = new Vector2(horizontalDistance * column, verticalPosition);
 				position.X += row % 2 == 0 ? 0 : horizontalDistance / 2;
 				tile.Position = position;
-				
-				if (column % 2 == 0 ^ row % 2 == 0) {
-					tile.Modulate = new Color(0, 0, 0);
-				}
-				
 				AddChild(tile);
 			}
 		}
