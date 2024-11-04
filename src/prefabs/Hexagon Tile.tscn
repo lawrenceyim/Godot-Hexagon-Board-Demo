@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://byyc8sgy7rbnw"]
 
-[ext_resource type="Script" path="res://src/scripts/Tile.cs" id="1_iqn3w"]
-[ext_resource type="Texture2D" uid="uid://ddjbb1hrcbi1o" path="res://src/assets/Blank Hexagon.png" id="1_p151i"]
+[ext_resource type="Script" path="res://scripts/TileObject.cs" id="1_5tere"]
+[ext_resource type="Texture2D" uid="uid://ddjbb1hrcbi1o" path="res://assets/Blank Hexagon.png" id="1_p151i"]
 
 [node name="Hexagon Tile" type="Node2D" node_paths=PackedStringArray("_sprite")]
-script = ExtResource("1_iqn3w")
+script = ExtResource("1_5tere")
 _sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

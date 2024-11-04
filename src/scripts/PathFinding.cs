@@ -5,13 +5,13 @@ using System.Linq;
 
 public class PathFinding {
     private TileData[,] _board;
-    private readonly Vector2I[] _directions = {
-        new Vector2I(1, -1),
-        new Vector2I(1, 0),
-        new Vector2I(1, 1),
-        new Vector2I(0, 1),
-        new Vector2I(-1, 0),
-        new Vector2I(0, -1)
+    private readonly (int, int)[] _directions = {
+        (1, -1),
+        (1, 0),
+        (1, 1),
+        (0, 1),
+        (-1, 0),
+        (0, -1)
     };
 
     public PathFinding(TileData[,] board) {
@@ -21,7 +21,7 @@ public class PathFinding {
     // Return a List of TileData including both the start and end TileData, going from start to end
     public TileData[] FindPath(TileData start, TileData end) {
         PriorityQueue<TileData, int> queue = new PriorityQueue<TileData, int>();
-        queue.Enqueue(start, GetManhattanDistance(start, end));
+        queue.Enqueue(start, GetManhattanDistance(start.GetCoordinates(), end.GetCoordinates()));
 
         Dictionary<TileData, int> lowestPathCostTo = new Dictionary<TileData, int>();
         lowestPathCostTo.Add(start, 0);
@@ -51,7 +51,7 @@ public class PathFinding {
                         pathCost < lowestPathCostTo.GetValueOrDefault(neighbor, 0)) {
                     lowestPathCostTo.Add(neighbor, pathCost);
                     optimalTileDataFrom.Add(neighbor, current);
-                    queue.Enqueue(neighbor, pathCost + GetManhattanDistance(neighbor, end));
+                    queue.Enqueue(neighbor, pathCost + GetManhattanDistance(neighbor.GetCoordinates(), end.GetCoordinates()));
                 }
             }
         }
@@ -62,22 +62,23 @@ public class PathFinding {
     // Optimize if pathfinding performance becomes an issue
     private List<TileData> FindNeighbors(TileData current) {
         List<TileData> neighbors = new List<TileData>();
-        foreach (Vector2I direction in _directions) {
-            Vector2I coordinates = current.GetCoordinates() + direction;
+        foreach ((int, int) direction in _directions) {
+            (int, int) coordinates = current.GetCoordinates();
+            coordinates.Item1 += direction.Item1;
+            coordinates.Item2 += direction.Item2;
             if (IsValidCoordinates(coordinates)) {
-                neighbors.Add(_board[coordinates.X, coordinates.Y]);
+                neighbors.Add(_board[coordinates.Item1, coordinates.Item2]);
             }
         }
         return neighbors;
     }
 
-    private bool IsValidCoordinates(Vector2I coordinates) {
-        return coordinates.X >= 0 && coordinates.X < _board.GetLength(0) &&
-            coordinates.Y >= 0 && coordinates.Y < _board.GetLength(1);
+    private bool IsValidCoordinates((int, int) coordinates) {
+        return coordinates.Item1 >= 0 && coordinates.Item1 < _board.GetLength(0) &&
+            coordinates.Item2 >= 0 && coordinates.Item2 < _board.GetLength(1);
     }
 
-    private int GetManhattanDistance(TileData start, TileData end) {
-        Vector2I difference = start.GetCoordinates() - end.GetCoordinates();
-        return Math.Abs(difference.X) + Math.Abs(difference.Y);
+    private int GetManhattanDistance((int, int) start, (int, int) end) {
+        return Math.Abs(start.Item1 - end.Item1) + Math.Abs(start.Item2 + end.Item2);
     }
 }
