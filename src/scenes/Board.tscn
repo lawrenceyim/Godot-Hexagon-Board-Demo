@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ck6gjw07dfqu5"]
 
-[ext_resource type="Script" path="res://BoardGenerator.cs" id="1_ca84w"]
-[ext_resource type="PackedScene" uid="uid://byyc8sgy7rbnw" path="res://Hexagon Tile.tscn" id="2_lxv8m"]
+[ext_resource type="Script" path="res://src/scripts/BoardGenerator.cs" id="1_ca84w"]
+[ext_resource type="PackedScene" uid="uid://byyc8sgy7rbnw" path="res://src/prefabs/Hexagon Tile.tscn" id="2_lxv8m"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_ca84w")
